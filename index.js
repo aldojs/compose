@@ -5,7 +5,9 @@ const assert = require('assert')
 const { setImmediate } = require('timers')
 
 // export
+exports = compose
 module.exports = compose
+exports.default = compose
 
 /**
  * Compose the given handlers and return a handler
