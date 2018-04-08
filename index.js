@@ -8,7 +8,7 @@ const { setImmediate } = require('timers')
 module.exports = compose
 
 /**
- * Compose multiple handlers into a single handler
+ * Compose the given handlers and return a handler
  *
  * @param {Function[]} fns
  * @returns {Function}

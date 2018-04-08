@@ -16,7 +16,7 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">7.6"
+    "node": ">=8.9"
   },
   "repository": {
     "type": "git",
