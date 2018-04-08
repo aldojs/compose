@@ -8,12 +8,16 @@
   },
   "scripts": {
     "test": "mocha",
-    "lint": "standard index.js"
+    "lint": "standard index.js",
+    "prepublish": "npm run lint && npm test"
   },
   "files": [
     "index.js",
     "index.d.ts"
   ],
+  "engines": {
+    "node": ">7.6"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aldojs/compose.git"
