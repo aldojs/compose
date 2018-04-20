@@ -4,14 +4,14 @@
 const assert = require('assert')
 
 /**
- * Compose the given handlers and return a handler
+ * Compose the given middlewares and return a single middleware
  *
  * @param {Function[]} fns
  * @returns {Function}
  * @public
  */
 function compose (fns) {
-  assert(fns instanceof Array, 'Expect an array of handlers')
+  assert(fns instanceof Array, 'Expect an array of functions')
 
   for (let fn of fns) {
     assert(typeof fn === 'function', `Expect function but got "${typeof fn}"`)

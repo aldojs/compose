@@ -1,7 +1,9 @@
 
-/**
- * Compose the given handlers and return a handler
- * 
- * @param fns handlers
- */
-export default function compose (fns: Function[]): (ctx: object, done: Function) => Promise<void>;
+declare function compose<T>(fns: compose.Middleware<T>[]): compose.ComposedMiddleware<T>;
+
+declare namespace compose {
+  type Middleware<T> = (context: T, next: () => Promise<any>) => any;
+  type ComposedMiddleware<T> = (context: T, next?: () => Promise<any>) => Promise<any>;
+}
+
+export = compose;
