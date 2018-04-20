@@ -4,4 +4,6 @@
  * 
  * @param fns handlers
  */
-export default function compose (fns: Function[]): (...args: any[]) => Promise<void>;
+function compose (fns: Function[]): (ctx: object, done: Function) => Promise<void>;
+
+export default compose;

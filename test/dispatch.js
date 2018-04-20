@@ -9,9 +9,9 @@ describe('dispatching utility', () => {
   it('should work', async () => {
     var i = 0
     var stack = [
-      () => { i++ },
-      () => { i++ },
-      () => { i++ }
+      async (_, next) => { i++; await next() },
+      async (_, next) => { i++; await next() },
+      async (_, next) => { i++; await next() },
     ]
 
     await compose(stack)()
@@ -32,7 +32,7 @@ describe('dispatching utility', () => {
   it('should reject on errors in a handler', async () => {
     var i = 0
     var stack = [
-      () => { i++ },
+      async (_, next) => { i++; await next() },
       () => { throw new Error('Ooops!') },
       () => { i++ }
     ]
@@ -40,45 +40,27 @@ describe('dispatching utility', () => {
     try {
       await compose(stack)()
 
-      assert.fail('promise was not reject')
+      assert.fail('Promise was not rejected')
     } catch (e) {
       assert.equal(e.message, 'Ooops!')
       assert.equal(i, 1)
     }
   })
 
-  it('should stop if a handler returns `false`', async () => {
-    var i = 0
-    var stack = [
-      () => { i++ },
-      () => { i++ },
-      () => false,
-      () => { i++ }
-    ]
-
-    await compose(stack)(null)
-
-    assert.equal(i, 2)
-  })
-
-  it('should pass the arguments to all handlers', async () => {
-    var aa = 'foo'
-    var bb = 123
-    var cc = {}
+  it('should pass the context to all handlers', async () => {
+    var ctx = { foo: 'bar' }
 
     var stack = [
-      (a, b, c) => {
-        assert.equal(a, aa)
-        assert.equal(b, bb)
-        assert.equal(c, cc)
+      (c, next) => {
+        assert.deepEqual(c, ctx)
+        return next()
       },
-      (a, b, c) => {
-        assert.equal(a, aa)
-        assert.equal(b, bb)
-        assert.equal(c, cc)
+      (c, next) => {
+        assert.deepEqual(c, ctx)
+        return next()
       }
     ]
 
-    await compose(stack)(aa, bb, cc)
+    await compose(stack)(ctx)
   })
 })
