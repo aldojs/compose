@@ -1,6 +1,6 @@
 {
   "name": "aldo-compose",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Handler composition utility",
   "main": "index.js",
   "directories": {
