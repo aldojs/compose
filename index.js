@@ -20,10 +20,10 @@ function compose (fns) {
   return (ctx, done) => {
     var i = 0
 
-    async function _next () {
+    function _next () {
       var fn = fns[i++] || done
 
-      if (fn) await fn(ctx, _next)
+      if (fn) return fn(ctx, _next)
     }
 
     return _next()

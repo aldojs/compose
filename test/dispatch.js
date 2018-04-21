@@ -7,22 +7,13 @@ const assert = require('assert')
 
 describe('dispatching utility', () => {
   it('should work', async () => {
-    var i = 0
     var stack = [
-      async (_, next) => { i++; await next() },
-      async (_, next) => { i++; await next() },
-      async (_, next) => { i++; await next() },
+      (_, next) => next(),
+      (_, next) => next(),
+      () => 123,
     ]
 
-    await compose(stack)()
-
-    assert.equal(i, 3)
-  })
-
-  it('should return a promise', () => {
-    var out = compose([])()
-
-    assert(out instanceof Promise)
+    assert.equal(await compose(stack)(), 123)
   })
 
   it('should work with zero handler', async () => {
@@ -32,18 +23,17 @@ describe('dispatching utility', () => {
   it('should reject on errors in a handler', async () => {
     var i = 0
     var stack = [
-      async (_, next) => { i++; await next() },
+      async (_, next) => next(),
       () => { throw new Error('Ooops!') },
-      () => { i++ }
+      () => assert.fail('should not call this handler')
     ]
 
     try {
-      await compose(stack)()
+      let out = await compose(stack)()
 
       assert.fail('Promise was not rejected')
     } catch (e) {
       assert.equal(e.message, 'Ooops!')
-      assert.equal(i, 1)
     }
   })
 
