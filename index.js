@@ -26,7 +26,7 @@ function compose (fns) {
       if (fn) return fn(ctx, _next)
     }
 
-    return _next()
+    return new Promise((resolve) => resolve(_next()))
   }
 }
 
