@@ -20,13 +20,13 @@ function compose (fns) {
   return (ctx, done) => {
     var i = 0
 
-    function _next () {
-      var fn = fns[i++] || done
-
-      if (fn) return fn(ctx, _next)
+    async function _next () {
+      var fn = fns[i++]
+      
+      return fn ? fn(ctx, _next) : done(ctx)
     }
 
-    return new Promise((resolve) => resolve(_next()))
+    return _next()
   }
 }
 
