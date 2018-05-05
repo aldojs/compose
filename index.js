@@ -22,8 +22,10 @@ function compose (fns) {
 
     async function _next () {
       var fn = fns[i++]
-      
-      return fn ? fn(ctx, _next) : done(ctx)
+
+      if (fn) return fn(ctx, _next)
+
+      if (done) return done(ctx)
     }
 
     return _next()
