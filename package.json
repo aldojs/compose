@@ -1,6 +1,6 @@
 {
   "name": "aldo-compose",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Handler composition utility",
   "main": "index.js",
   "directories": {
@@ -16,7 +16,7 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">=8.9"
+    "node": ">=8"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,9 @@
   "keywords": [
     "aldo",
     "compose",
-    "composition",
     "handler",
-    "middleware"
+    "middleware",
+    "composition"
   ],
   "author": "absolux",
   "license": "MIT",
