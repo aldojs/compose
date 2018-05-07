@@ -25,7 +25,7 @@ function compose (fns) {
 
       if (fn) return fn(ctx, _next)
 
-      if (done) return done(ctx)
+      if (done) return done()
     }
 
     return _next()
