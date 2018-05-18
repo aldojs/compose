@@ -11,7 +11,7 @@ $ npm install aldo-compose
 
 ### compose([a, b, c, ...])
 
-  Compose the given handlers and return a single function.
+  Compose the given handlers to a single function.
 
 ## License
 
