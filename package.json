@@ -33,6 +33,7 @@
     "url": "https://github.com/aldojs/compose/issues"
   },
   "homepage": "https://github.com/aldojs/compose#readme",
+  "types": "lib/index.d.ts",
   "devDependencies": {
     "@types/mocha": "^5.2.0",
     "@types/node": "^8.10.14",
