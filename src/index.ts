@@ -19,17 +19,17 @@ export function compose<T> (fns: Middleware<T>[]): ComposedMiddleware<T> {
     assert(is.function_(fn), `Expect a function but got "${is(fn)}"`)
   }
 
-  return (arg: T, done: (() => any) | undefined) => {
+  return (input: T, done?: () => any) => {
     var i = 0
 
-    async function next (): Promise<any> {
+    function next (): any {
       var fn = fns[i++]
 
-      if (fn) return fn(arg, next)
+      if (fn) return fn(input, next)
 
       if (done) return done()
     }
 
-    return next()
+    return new Promise((r) => r(next()))
   }
 }
